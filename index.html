@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Valentine's Day</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="animations.js" defer></script>
 </head>
 <body>
-    <h1>Happy Valentine's Day!</h1>
-    <p>Celebrate love and friendship with us!</p>
+    <div class="heart">
+        <h1>Happy Valentine's Day!</h1>
+        <p>May your day be filled with love and happiness.</p>
+    </div>
+    <script>
+        // Interactive features and animations
+        const heart = document.querySelector('.heart');
+        heart.addEventListener('click', () => {
+            heart.classList.toggle('animate');
+        });
+    </script>
 </body>
 </html>
