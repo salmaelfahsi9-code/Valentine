@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffcccb;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #valentineGif {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Would you be my Valentine?</h1>
+    <button id="noBtn">No</button>
+    <button id="yesBtn">Yes</button>
+    <img id="valentineGif" src="https://media.giphy.com/media/l0IylN2m2b2h51w1u/giphy.gif" alt="Happy Valentine GIF">
+
+    <script>
+        document.getElementById('noBtn').addEventListener('click', function() {
+            alert('Try again!');
+        });
+
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            document.getElementById('valentineGif').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
