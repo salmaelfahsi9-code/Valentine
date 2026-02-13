@@ -3,84 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Day Celebration</title>
+    <title>Valentine's Day</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #ffb6c1, #ff69b4);
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
+            box-sizing: border-box;
         }
-        h1 {
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 50%, #ffb6c1 100%);
             text-align: center;
-            color: white;
-            margin-top: 50px;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
         }
-        .button {
-            display: inline-block;
-            margin: 20px;
-            padding: 15px 30px;
-            font-size: 20px;
-            color: white;
-            background: #ff1493;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .floating-heart {
+
+        .heart {
             position: absolute;
-            width: 30px;
-            height: 30px;
-            background: url('https://cdn.pixabay.com/photo/2016/09/05/04/37/heart-558345_1280.png') no-repeat center center / cover;
-            animation: float 5s forwards;
+            color: #ff69b4;
+            font-size: 2em;
+            animation: float 4s ease-in infinite;
             opacity: 0.8;
         }
+
         @keyframes float {
             0% {
-                transform: translateY(0);
+                transform: translateY(100vh) translateX(0) scale(1);
+                opacity: 1;
             }
             100% {
-                transform: translateY(-500px);
+                transform: translateY(-100vh) translateX(100px) scale(0.5);
                 opacity: 0;
             }
         }
-        @keyframes confetti {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(100vh); }
+
+        .container {
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(255, 20, 147, 0.2);
+            position: relative;
+        }
+
+        h1 {
+            color: #ff1493;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        #yesBtn {
+            background-color: #ff69b4;
+            color: white;
+        }
+
+        #yesBtn:hover {
+            background-color: #ff1493;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        #noBtn {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        #noBtn:hover {
+            background-color: #ccc;
+        }
+
+        #valentineGif {
+            display: none;
+            max-width: 400px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .confetti-heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 3em;
+            animation: celebrate 2s ease-out forwards;
+        }
+
+        @keyframes celebrate {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Happy Valentine's Day, Hamza!</h1>
-    <button class="button" onclick="celebrate()">Yes</button>
-    <div id="confetti"></div>
+    <div class="celebration" id="celebration"></div>
+
+    <div class="container">
+        <h1>❤️ Would you be my Valentine? ❤️</h1>
+        <div class="button-container">
+            <button id="noBtn">No</button>
+            <button id="yesBtn">Yes</button>
+        </div>
+        <img id="valentineGif" src="https://media.giphy.com/media/l0IylN2m2b2h51w1u/giphy.gif" alt="Happy Valentine GIF">
+    </div>
 
     <script>
-        function celebrate() {
-            // Create confetti effect
-            for (let i = 0; i < 100; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('floating-heart');
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-                document.body.appendChild(heart);
-                setTimeout(() => {
-                    heart.remove();
-                }, 5000);
-            }
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 5000);
         }
 
-        // Create floating hearts
-        setInterval(() => {
-            const heart = document.createElement('div');
-            heart.classList.add('floating-heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            document.body.appendChild(heart);
+        // Create hearts continuously
+        setInterval(createHeart, 300);
+
+        // No button - evades clicks
+        const noBtn = document.getElementById('noBtn');
+        noBtn.addEventListener('mouseover', function() {
+            const randomX = Math.random() * 300 - 150;
+            const randomY = Math.random() * 300 - 150;
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            noBtn.style.transition = 'all 0.3s ease';
+        });
+
+        // Yes button - shows celebration
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            document.getElementById('valentineGif').style.display = 'block';
+            createCelebration();
+        });
+
+        // Celebration animation
+        function createCelebration() {
+            const celebration = document.getElementById('celebration');
+            celebration.style.display = 'block';
+
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-heart';
+                confetti.textContent = '❤️';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-50px';
+                confetti.style.setProperty('--tx', (Math.random() - 0.5) * 300 + 'px');
+                confetti.style.setProperty('--ty', (Math.random() * 400 + 200) + 'px');
+                celebration.appendChild(confetti);
+            }
+
             setTimeout(() => {
-                heart.remove();
-            }, 5000);
-        }, 1500);
+                celebration.style.display = 'none';
+                celebration.innerHTML = '';
+            }, 2000);
+        }
     </script>
 </body>
 </html>
