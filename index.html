@@ -1,11 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Valentine Celebration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Celebration</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #ffb6c1, #ff69b4);
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+        }
+        .button {
+            display: inline-block;
+            margin: 20px;
+            padding: 15px 30px;
+            font-size: 20px;
+            color: white;
+            background: #ff1493;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .floating-heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('https://cdn.pixabay.com/photo/2016/09/05/04/37/heart-558345_1280.png') no-repeat center center / cover;
+            animation: float 5s forwards;
+            opacity: 0.8;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-500px);
+                opacity: 0;
+            }
+        }
+        @keyframes confetti {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hamza's Valentine Celebration</h1>
-    <p>Happy Valentine's Day! Let's celebrate love and friendship!</p>
-    <p>Wishing you a day filled with joy and affection.</p>
+    <h1>Happy Valentine's Day, Hamza!</h1>
+    <button class="button" onclick="celebrate()">Yes</button>
+    <div id="confetti"></div>
+
+    <script>
+        function celebrate() {
+            // Create confetti effect
+            for (let i = 0; i < 100; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+        }
+
+        // Create floating hearts
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }, 1500);
+    </script>
 </body>
 </html>
